@@ -18,7 +18,19 @@ export class TTiming {
         return msToHHMMSS(this.DurationMilliseconds(), aWantMS);
     }
 
+    TheDate(): string {
+        if (this.startTime.getDate = this.endTime.getDate) {
+            return this.startTime.toDateString();
+        }
+        else
+            return this.startTime.toDateString() + " to " + this.endTime.toDateString();
+    }
+
     constructor(title: string, description: string, category: TTimingCategory, startTime: Date, endTime: Date) {
+        if (startTime > endTime) {
+            throw new Error("Start time later than end time");
+        }
+
         this.id = 1;
         this.title = title;
         this.description = description;
