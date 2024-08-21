@@ -1,4 +1,8 @@
-class TTiming {
+import { msToHHMMSS } from "./TimeUtils";
+
+export type TTimings = TTiming[];
+
+export class TTiming {
     id: number;
     title: string;
     category: TTimingCategory
@@ -6,14 +10,12 @@ class TTiming {
     startTime: Date;
     endTime: Date;
 
-    DurationMilliseconds(): number {
+    private DurationMilliseconds(): number {
         return this.endTime.getTime() - this.startTime.getTime();
     }
 
-    DurationUTC(): () => string {
-        var diffDate: Date = new Date(0)
-        diffDate.setUTCMilliseconds(this.DurationMilliseconds());
-        return diffDate.toUTCString;
+    DurationHHMMSS(aWantMS = false): string {
+        return msToHHMMSS(this.DurationMilliseconds(), aWantMS);
     }
 
     constructor(title: string, description: string, category: TTimingCategory, startTime: Date, endTime: Date) {
@@ -27,7 +29,7 @@ class TTiming {
     };
 }
 
-enum TTimingCategory {
+export enum TTimingCategory {
     tcMeet = "Meeting",
     tcDev = "Development",
     tcLunch = "Lunch",
