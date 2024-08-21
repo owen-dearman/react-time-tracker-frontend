@@ -1,4 +1,4 @@
-import { msToHHMMSS } from "../Units/TimeUtils"
+import { msToHHMMSSSymbols } from "../Units/TimeUtils"
 import { TTiming } from "../Units/Types"
 
 interface ISummary {
@@ -6,15 +6,15 @@ interface ISummary {
 }
 export function Summary({ aTiming }: ISummary): JSX.Element {
     return (
-        <section>
-            <h2>{aTiming.title}</h2>
-            <h3>{aTiming.category}</h3>
-            <div>
-                <h3>{msToHHMMSS(aTiming.startTime.getTime(), false)}</h3>
-                <h3>{msToHHMMSS(aTiming.endTime.getTime(), false)}</h3>
+        <section className="summary-row">
+            <p className="summary-category">{aTiming.category}</p>
+            <h2 className="summary-title">{aTiming.title}</h2>
+            <div className="summary-time-container">
+                <h3>{msToHHMMSSSymbols(aTiming.startTime.getTime(), false)}</h3>
+                <h3>{msToHHMMSSSymbols(aTiming.endTime.getTime(), false)}</h3>
             </div>
-            <h3>{aTiming.DurationHHMMSS()}</h3>
-            <p>{aTiming.description}</p>
+            <p className="summary-duration">{aTiming.DurationHHMMSS()}</p>
+            {/* <p>{aTiming.description}</p> */}
         </section>
     )
 }

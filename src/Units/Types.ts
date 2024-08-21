@@ -1,4 +1,4 @@
-import { msToHHMMSS } from "./TimeUtils";
+import { msToHHMMSSWords } from "./TimeUtils";
 
 export type TTimings = TTiming[];
 
@@ -15,7 +15,7 @@ export class TTiming {
     }
 
     DurationHHMMSS(aWantMS = false): string {
-        return msToHHMMSS(this.DurationMilliseconds(), aWantMS);
+        return msToHHMMSSWords(this.DurationMilliseconds(), aWantMS);
     }
 
     TheDate(): string {

@@ -9,7 +9,9 @@ export function SummaryList({ aTimings }: ISummaryList): JSX.Element {
     return (
         <div>
             <h2>Your Summary</h2>
-            {aTimings.map((aTiming) => { return <Summary aTiming={aTiming} /> })}
+            <div className="summary-list">
+                {aTimings.map((aTiming) => { return <Summary aTiming={aTiming} /> })}
+            </div>
         </div>
     )
 }
