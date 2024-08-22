@@ -1,5 +1,6 @@
 import { msToHHMMSSWords } from "./TimeUtils";
 
+export type TSchedule = { date: string, timings: TTimings };
 export type TTimings = TTiming[];
 
 export class TTiming {
@@ -7,8 +8,9 @@ export class TTiming {
     title: string;
     category: TTimingCategory
     description: string;
-    startTime: Date;
-    endTime: Date;
+    startTime: Date; //Ignore Date aspect
+    endTime: Date; //Ignore Date aspect
+
 
     private DurationMilliseconds(): number {
         return this.endTime.getTime() - this.startTime.getTime();
@@ -18,20 +20,19 @@ export class TTiming {
         return msToHHMMSSWords(this.DurationMilliseconds(), aWantMS);
     }
 
-    TheDate(): string {
-        if (this.startTime.getDate = this.endTime.getDate) {
-            return this.startTime.toDateString();
+    Date(): number {
+        if (this.startTime.getDate() !== this.endTime.getDate()) {
+            console.debug('Start time and end time are on different dates. Using date from Start time');
         }
-        else
-            return this.startTime.toDateString() + " to " + this.endTime.toDateString();
+        return this.startTime.getDate();
     }
 
-    constructor(title: string, description: string, category: TTimingCategory, startTime: Date, endTime: Date) {
+    constructor(id: number, title: string, description: string, category: TTimingCategory, startTime: Date, endTime: Date) {
         if (startTime > endTime) {
             throw new Error("Start time later than end time");
         }
 
-        this.id = 1;
+        this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
@@ -42,13 +43,38 @@ export class TTiming {
 }
 
 export enum TTimingCategory {
-    tcMeet = "Meeting",
+    tcAdmin = "Admin",
+    tcBreak = "Break",
     tcDev = "Development",
-    tcLunch = "Lunch",
+    tcIntMeet = "Meeting (Internal)",
+    tcExtMeet = "Meeting (External)",
+    tcOoh = "Out Of Office",
     tcSupport = "Support",
     tcTest = "Testing",
-    tcOoh = "Out Of Office",
     tcTrain = "Training",
-    tcAdmin = "Admin",
     tcOther = "Other"
 };
+
+export enum TDay {
+    Monday = 1,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday
+}
+
+export enum TMonth {
+    January,
+    February,
+    March,
+    April,
+    May,
+    June,
+    July,
+    August,
+    October,
+    November,
+    December
+}

@@ -1,17 +1,26 @@
-import { TTimings } from "../Units/Types";
+import { TSchedule } from "../Units/Types";
 import { Summary } from "./Summary";
+import { NewTimingForm } from "./NewTimingForm";
+import { useState } from "react";
 
 interface ISummaryList {
-    aTimings: TTimings
+    aSchedule: TSchedule
 }
 
-export function SummaryList({ aTimings }: ISummaryList): JSX.Element {
+export function SummaryList({ aSchedule }: ISummaryList): JSX.Element {
+    var [isNewTimingsFormOpen, setNewTimingsFormOpen] = useState(true);
+
+
     return (
-        <div>
-            <h2>Your Summary</h2>
+        <div className="summary-container">
+            <h2 className="summary-list-title">{aSchedule.date}</h2>
+            {!isNewTimingsFormOpen ? <button onClick={() => { setNewTimingsFormOpen(true) }}>+</button> : <button onClick={() => { setNewTimingsFormOpen(false) }}>X</button>}
+            {isNewTimingsFormOpen && <NewTimingForm aDate={aSchedule.date} />}
+
             <div className="summary-list">
-                {aTimings.map((aTiming) => { return <Summary aTiming={aTiming} /> })}
+                {aSchedule.timings.map((aTiming) => { return <Summary key={aTiming.id} aTiming={aTiming} /> })}
             </div>
         </div>
+
     )
 }

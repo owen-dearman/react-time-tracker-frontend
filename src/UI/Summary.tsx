@@ -1,34 +1,29 @@
-import { msToHHMMSSSymbols } from "../Units/TimeUtils"
+import { useState } from "react";
 import { TTiming } from "../Units/Types"
+import { ValidateTiming } from "../Units/Validator";
+import { TimeContainer } from "./TimeContainer";
 
 interface ISummary {
     aTiming: TTiming
 }
 export function Summary({ aTiming }: ISummary): JSX.Element {
-    var isSectionExpanded = false;
+    var [isSectionExpanded, SetIsSectionExpanded] = useState(false);
+    const { isValid, errMsg } = ValidateTiming(aTiming);
+
     return (
-        <div className="summary-row">
+        <div className="summary-row" onClick={() => SetIsSectionExpanded(!isSectionExpanded)}>
             <div className="summary-info-container">
                 <div className="summary-banner">
                     <p className="summary-category">{aTiming.category}</p>
-                    <div className="vertical-line"></div>
+                    {aTiming.title !== "" && <div className="vertical-line"></div>}
                     <p className="summary-title">{aTiming.title}</p>
                 </div>
                 {isSectionExpanded && <p className="summary-description">{aTiming.description}</p>}
-                <div className="summary-time-container">
-                    <div className="timebox">
-                        <img className="timebox-icon" src="Icons\FromArrow.png"></img>
-                        <p className="timebox-time">{msToHHMMSSSymbols(aTiming.startTime.getTime(), false)}</p>
-                    </div>
-                    <div className="timebox">
-                        <p className="timebox-time">{msToHHMMSSSymbols(aTiming.endTime.getTime(), false)}</p>
-                        <img className="timebox-icon" src="Icons\ToArrow.png"></img>
-                    </div>
-                </div>
+                <TimeContainer startTime={aTiming.startTime.getTime()} endTime={aTiming.endTime.getTime()} />
                 {isSectionExpanded && <p className="summary-duration">{aTiming.DurationHHMMSS()}</p>}
             </div>
             <div>
-                <img className="status-icon" src="Icons\GreyTick.png"></img>
+                <img className="status-icon" src={isValid ? "Icons/GreenTick.png" : "Icons/Warning.png"} title={errMsg}></img>
             </div>
         </div>
     )

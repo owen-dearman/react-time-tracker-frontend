@@ -1,6 +1,8 @@
-export function msToHHMMSSSymbols(aDuration: number, aWantMS: boolean) {
+import { TDay, TMonth } from "./Types";
+
+export function msToHHMMSSSymbols(aDuration: number, aWantS: boolean = false, aWantMS: boolean = false) {
     var [hours, minutes, seconds, milliseconds] = msToHHMMSS(aDuration);
-    return `${hours}:${minutes}:${seconds}` + ((aWantMS) ? `.${milliseconds}` : "");
+    return `${hours}:${minutes}` + (aWantS ? `:${seconds}` : "") + (aWantMS ? `.${milliseconds}` : "");
 }
 
 export function msToHHMMSSWords(aDuration: number, aWantMS: boolean) {
@@ -18,9 +20,6 @@ export function msToHHMMSSWords(aDuration: number, aWantMS: boolean) {
     if (aWantMS && milliseconds !== "00") {
         result = result + milliseconds + " milliseconds ";
     };
-    if (result == "") {
-        result = "No Duration";
-    };
 
     return result;
 }
@@ -32,3 +31,6 @@ function msToHHMMSS(aDuration: number): string[] {
     var hours = Math.floor((aDuration / (1000 * 60 * 60)) % 24).toString().padStart(2, "0");
     return [hours, minutes, seconds, milliseconds];
 }
+
+
+export function GetDateString(aDate: Date): string { return `${TDay[aDate.getDay()]} ${aDate.getDate()} ${TMonth[aDate.getMonth()]} ${aDate.getFullYear()}` };
