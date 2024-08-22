@@ -68,6 +68,12 @@ body {
     color: var(--faint-text-col);
 }
 
+.summary-description {
+    font-size: 15px;
+    margin: 5px;
+    color: var(--faint-text-col);
+}
+
 .status-icon {
     height: 50px;
     width: auto;

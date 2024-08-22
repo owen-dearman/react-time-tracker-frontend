@@ -14,6 +14,7 @@ export function Summary({ aTiming }: ISummary): JSX.Element {
                     <div className="vertical-line"></div>
                     <p className="summary-title">{aTiming.title}</p>
                 </div>
+                {isSectionExpanded && <p className="summary-description">{aTiming.description}</p>}
                 <div className="summary-time-container">
                     <div className="timebox">
                         <img className="timebox-icon" src="Icons\FromArrow.png"></img>
@@ -24,8 +25,7 @@ export function Summary({ aTiming }: ISummary): JSX.Element {
                         <img className="timebox-icon" src="Icons\ToArrow.png"></img>
                     </div>
                 </div>
-                {<p className="summary-duration">{aTiming.DurationHHMMSS()}</p>}
-                {isSectionExpanded && <p>{aTiming.description}</p>}
+                {isSectionExpanded && <p className="summary-duration">{aTiming.DurationHHMMSS()}</p>}
             </div>
             <div>
                 <img className="status-icon" src="Icons\GreyTick.png"></img>
