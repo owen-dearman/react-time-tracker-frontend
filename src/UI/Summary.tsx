@@ -5,16 +5,31 @@ interface ISummary {
     aTiming: TTiming
 }
 export function Summary({ aTiming }: ISummary): JSX.Element {
+    var isSectionExpanded = false;
     return (
-        <section className="summary-row">
-            <p className="summary-category">{aTiming.category}</p>
-            <h2 className="summary-title">{aTiming.title}</h2>
-            <div className="summary-time-container">
-                <h3>{msToHHMMSSSymbols(aTiming.startTime.getTime(), false)}</h3>
-                <h3>{msToHHMMSSSymbols(aTiming.endTime.getTime(), false)}</h3>
+        <div className="summary-row">
+            <div className="summary-info-container">
+                <div className="summary-banner">
+                    <p className="summary-category">{aTiming.category}</p>
+                    <div className="vertical-line"></div>
+                    <p className="summary-title">{aTiming.title}</p>
+                </div>
+                <div className="summary-time-container">
+                    <div className="timebox">
+                        <img className="timebox-icon" src="Icons\FromArrow.png"></img>
+                        <p className="timebox-time">{msToHHMMSSSymbols(aTiming.startTime.getTime(), false)}</p>
+                    </div>
+                    <div className="timebox">
+                        <p className="timebox-time">{msToHHMMSSSymbols(aTiming.endTime.getTime(), false)}</p>
+                        <img className="timebox-icon" src="Icons\ToArrow.png"></img>
+                    </div>
+                </div>
+                {<p className="summary-duration">{aTiming.DurationHHMMSS()}</p>}
+                {isSectionExpanded && <p>{aTiming.description}</p>}
             </div>
-            <p className="summary-duration">{aTiming.DurationHHMMSS()}</p>
-            {/* <p>{aTiming.description}</p> */}
-        </section>
+            <div>
+                <img className="status-icon" src="Icons\GreyTick.png"></img>
+            </div>
+        </div>
     )
 }
