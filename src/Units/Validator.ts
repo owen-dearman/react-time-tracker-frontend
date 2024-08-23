@@ -1,16 +1,16 @@
 import { TTiming } from "./Types";
-import { TError } from "./Errors";
+import { TError, TErrorLevel, TValidation } from "./Errors";
 
-export function ValidateTiming(aTiming: TTiming): { isValid: boolean; errMsg: string } {
-    var result = { isValid: true, errMsg: "" };
+export function ValidateTiming(aTiming: TTiming): TValidation {
+    var result: TValidation = { validation: TErrorLevel.elNone, errMsg: "" };
     try {
 
         if (aTiming.startTime.getTime() > aTiming.endTime.getTime()) {
-            result = { isValid: false, errMsg: TError.eStartTimeAfterEndTime };
+            result = { validation: TErrorLevel.elError, errMsg: TError.eStartTimeAfterEndTime };
         }
 
         if (aTiming.startTime.getTime() == aTiming.endTime.getTime()) {
-            result = { isValid: false, errMsg: TError.eStartTimeEqualToEndTime };
+            result = { validation: TErrorLevel.elWarning, errMsg: TError.eStartTimeEqualToEndTime };
         }
 
     } catch (error) {
@@ -18,7 +18,7 @@ export function ValidateTiming(aTiming: TTiming): { isValid: boolean; errMsg: st
         throw error;
 
     } finally {
-        console.debug({ Title: aTiming.title, Start: aTiming.startTime, End: aTiming.endTime, isValid: result.isValid, errMsg: result.errMsg });
+        console.debug({ Title: aTiming.title, Start: aTiming.startTime, End: aTiming.endTime, result: result.validation, errMsg: result.errMsg });
         return result;
     }
 }

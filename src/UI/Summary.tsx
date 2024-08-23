@@ -2,13 +2,14 @@ import { useState } from "react";
 import { TTiming } from "../Units/Types"
 import { ValidateTiming } from "../Units/Validator";
 import { TimeContainer } from "./TimeContainer";
+import { GetErrorLevelIconURL } from "../Units/Errors";
 
 interface ISummary {
     aTiming: TTiming
 }
 export function Summary({ aTiming }: ISummary): JSX.Element {
     var [isSectionExpanded, SetIsSectionExpanded] = useState(false);
-    const { isValid, errMsg } = ValidateTiming(aTiming);
+    const { validation, errMsg } = ValidateTiming(aTiming);
 
     return (
         <div className="summary-row" onClick={() => SetIsSectionExpanded(!isSectionExpanded)}>
@@ -23,7 +24,7 @@ export function Summary({ aTiming }: ISummary): JSX.Element {
                 {isSectionExpanded && <p className="summary-duration">{aTiming.DurationHHMMSS()}</p>}
             </div>
             <div>
-                <img className="status-icon" src={isValid ? "Icons/GreenTick.png" : "Icons/Warning.png"} title={errMsg}></img>
+                <img className="status-icon" src={GetErrorLevelIconURL(validation)} title={errMsg}></img>
             </div>
         </div>
     )
