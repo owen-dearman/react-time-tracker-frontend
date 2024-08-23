@@ -17,7 +17,12 @@ export class TTiming {
     }
 
     DurationHHMMSS(aWantMS = false): string {
-        return msToHHMMSSWords(this.DurationMilliseconds(), aWantMS);
+        var duration = this.DurationMilliseconds();
+        if (duration < 1) {
+            return ""
+        } else {
+            return msToHHMMSSWords(duration, aWantMS);
+        }
     }
 
     Date(): number {
@@ -28,9 +33,9 @@ export class TTiming {
     }
 
     constructor(id: number, title: string, description: string, category: TTimingCategory, startTime: Date, endTime: Date) {
-        if (startTime > endTime) {
-            throw new Error("Start time later than end time");
-        }
+        // if (startTime > endTime) {
+        // throw new Error("Start time later than end time");
+        // }
 
         this.id = id;
         this.title = title;

@@ -2,15 +2,15 @@ import { TTiming } from "./Types";
 import { TError, TErrorLevel, TValidation } from "./Errors";
 
 export function ValidateTiming(aTiming: TTiming): TValidation {
-    var result: TValidation = { validation: TErrorLevel.elNone, errMsg: "" };
+    var result: TValidation = { validation: TErrorLevel.None, errMsg: "" };
     try {
 
         if (aTiming.startTime.getTime() > aTiming.endTime.getTime()) {
-            result = { validation: TErrorLevel.elError, errMsg: TError.eStartTimeAfterEndTime };
+            result = { validation: TErrorLevel.Error, errMsg: TError.StartTimeAfterEndTime };
         }
 
-        if (aTiming.startTime.getTime() == aTiming.endTime.getTime()) {
-            result = { validation: TErrorLevel.elWarning, errMsg: TError.eStartTimeEqualToEndTime };
+        if (aTiming.startTime.getTime() === aTiming.endTime.getTime()) {
+            result = { validation: TErrorLevel.Warning, errMsg: TError.StartTimeEqualToEndTime };
         }
 
     } catch (error) {
@@ -18,7 +18,7 @@ export function ValidateTiming(aTiming: TTiming): TValidation {
         throw error;
 
     } finally {
-        console.debug({ Title: aTiming.title, Start: aTiming.startTime, End: aTiming.endTime, result: result.validation, errMsg: result.errMsg });
+        console.log({ Title: aTiming.title, Start: aTiming.startTime, End: aTiming.endTime, result: result.validation, errMsg: result.errMsg });
         return result;
     }
 }

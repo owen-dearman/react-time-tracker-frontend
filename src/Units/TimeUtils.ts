@@ -9,16 +9,16 @@ export function msToHHMMSSWords(aDuration: number, aWantMS: boolean) {
     var [hours, minutes, seconds, milliseconds] = msToHHMMSS(aDuration);
     var result = "";
     if (hours !== "00") {
-        result = result + hours + " hours ";
+        result = `${result} ${hours} hour${hours != "01" ? "s" : ""} `;
     };
     if (minutes !== "00") {
-        result = result + minutes + " minutes ";
+        result = `${result} ${minutes} minute${minutes != "01" ? "s" : ""} `
     };
     if (seconds !== "00") {
-        result = result + seconds + " seconds ";
+        result = `${result} ${seconds} second${seconds != "01" ? "s" : ""} `;
     };
     if (aWantMS && milliseconds !== "00") {
-        result = result + milliseconds + " milliseconds ";
+        result = `${result} ${milliseconds} millisecond${milliseconds != "01" ? "s" : ""} `;
     };
 
     return result;

@@ -1,6 +1,6 @@
 import { TTimingCategory } from "../Units/Types";
 import { TimeContainer } from "./TimeContainer";
-import { TimePicker } from "react-time-picker"
+// import { TimePicker } from "react-time-picker"
 
 interface INewTimingForm {
     aDate: string;
